@@ -11,10 +11,10 @@
     "start": "cross-env NODE_ENV=production node --env-file=prod.env dist/index.cjs",
     "check": "tsc",
     "load-local": "npm install ../ordinizer/app/client ../ordinizer/app/server ../ordinizer/app/analyzer",
-    "load-latest": "npm install @civillyengaged/ordinizer-client@latest @civillyengaged/ordinizer-server@latest"
+    "load-latest": "npm install @civillyengaged/ordinizer-client@latest @civillyengaged/ordinizer-server@latest @civillyengaged/ordinizer-analyzer@latest"
   },
   "dependencies": {
-    "@civillyengaged/ordinizer-analyzer": "file:../ordinizer/app/analyzer",
+    "@civillyengaged/ordinizer-analyzer": "^1.0.5",
     "@civillyengaged/ordinizer-client": "^1.0.8",
     "@civillyengaged/ordinizer-server": "^1.0.6",
     "@pinecone-database/pinecone": "^6.1.2",
