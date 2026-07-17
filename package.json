@@ -15,9 +15,9 @@
     "load-latest": "npm install @civillyengaged/ordinizer-client@latest @civillyengaged/ordinizer-server@latest @civillyengaged/ordinizer-analyzer@latest"
   },
   "dependencies": {
-    "@civillyengaged/ordinizer-analyzer": "file:../ordinizer/app/analyzer",
-    "@civillyengaged/ordinizer-client": "file:../ordinizer/app/client",
-    "@civillyengaged/ordinizer-server": "file:../ordinizer/app/server",
+    "@civillyengaged/ordinizer-analyzer": "^1.0.6",
+    "@civillyengaged/ordinizer-client": "^1.0.11",
+    "@civillyengaged/ordinizer-server": "^1.0.9",
     "@pinecone-database/pinecone": "^6.1.2",
     "@radix-ui/react-collapsible": "^1.1.4",
     "@radix-ui/react-popover": "^1.1.7",
