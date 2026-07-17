@@ -6,3 +6,6 @@ dist/
 logs/
 tmp/
 local/
+ny-transparency/.next
+ny-transparency/next-env.d.ts
+data/ny-transparency/

@@ -21,8 +21,13 @@ export async function setupVite(app: Express, server: Server) {
   const viteConfigPath = path.resolve(process.cwd(), "vite.config.ts");
   const viteConfigUrl = pathToFileURL(viteConfigPath).href;
 
-  const [{ createServer: createViteServer, createLogger }, { default: viteConfig }] =
+  const [{ createServer: createViteServer, createLogger }, { default: viteConfigExport }] =
     await Promise.all([import(viteModuleName), import(viteConfigUrl)]);
+
+  const viteConfig =
+    typeof viteConfigExport === "function"
+      ? await viteConfigExport({ command: "serve", mode: "development" })
+      : await viteConfigExport;
 
   const viteLogger = createLogger();
 

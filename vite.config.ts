@@ -6,11 +6,14 @@ import { readFileSync, existsSync } from "fs";
 
 export default defineConfig(({ mode }) => {
   const prodEnvFile = path.resolve(process.cwd(), "prod.env");
-  const prodEnv = existsSync(prodEnvFile) ? parseDotenv(readFileSync(prodEnvFile)) : {};
+  const prodEnv =
+    mode === "production" && existsSync(prodEnvFile)
+      ? parseDotenv(readFileSync(prodEnvFile))
+      : {};
   const env = { ...prodEnv, ...loadEnv(mode, process.cwd(), "") };
   const contextPath = env.ORDINIZER_CONTEXT_PATH || "/ordinizer";
   return {
-    base: contextPath + "/",
+    base: mode === "production" ? contextPath + "/" : "/",
     plugins: [react()],
     define: {
       __ORDINIZER_CONTEXT_PATH__: JSON.stringify(contextPath),

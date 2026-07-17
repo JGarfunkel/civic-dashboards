@@ -1,7 +1,9 @@
 import "dotenv/config";
+import path from "path";
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { setupNyTransparency } from "./ny-transparency";
 
 const app = express();
 app.use(express.json());
@@ -37,20 +39,29 @@ app.use((req, res, next) => {
   next();
 });
 
+//  initial website setup
+app.get("/", (_req, res) => {
+  res.redirect("/transparency");
+});
+
 (async () => {
   try {
     console.log("Starting server...");
     const server = await registerRoutes(app);
     console.log("Routes registered.");
 
-    app.get("*", (req, res, next) => {
-      if (req.path.includes(".") || req.path.startsWith("/api")) {
-        return next();
-      }
-      const path = require("path");
-      const ordinizerDist = path.resolve(process.cwd(), "dist", "public");
-      res.sendFile(path.join(ordinizerDist, "index.html"));
-    });
+    await setupNyTransparency(app, server, app.get("env") === "development");
+    console.log("NY Transparency setup complete.");
+
+    if (app.get("env") !== "development") {
+      app.get("*", (req, res, next) => {
+        if (req.path.includes(".") || req.path.startsWith("/api")) {
+          return next();
+        }
+        const ordinizerDist = path.resolve(process.cwd(), "dist", "public");
+        res.sendFile(path.join(ordinizerDist, "index.html"));
+      });
+    }
 
     app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
       const status = err.status || err.statusCode || 500;
@@ -64,7 +75,6 @@ app.use((req, res, next) => {
       await setupVite(app, server);
       console.log("Vite setup complete.");
     } else {
-      const path = require("path");
       const expressStatic = express.static;
       const ordinizerDist = path.resolve(process.cwd(), "dist", "public");
 
