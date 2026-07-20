@@ -370,6 +370,28 @@ body {
   margin-top: 2rem;
 }
 
+.page-footer {
+  width: 100%;
+  margin-top: 3rem;
+  padding: 1.5rem 0.94rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-footer-logo {
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.page-footer-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
 @media (max-width: 640px) {
   .table-head,
   .couplet {
